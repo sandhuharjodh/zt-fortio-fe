@@ -35,10 +35,10 @@ export const userDetail = async () => {
   return response.json();
 };
 
-export const userDetailById = async () => {
+export const userDetailById = async (userId:any) => {
   
   const response = await fetch(
-    `http://localhost:8000/api/users/user/67907d45d5a632d71baf79a3`,
+    `http://localhost:8000/api/users/user/${userId}`,
     {
       method: "Get",
       headers: {

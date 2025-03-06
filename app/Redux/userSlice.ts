@@ -72,8 +72,8 @@ export const LoginAsync = createAsyncThunk<LoginResponse, LoginArgs>(
 
 export const UserByIdAsync = createAsyncThunk<UserByIdArgs, LoginArgs>(
   "auth/userById",
-  async () => {
-    const response = await userDetailById();
+  async (userId) => {
+    const response = await userDetailById(userId);
     return response;
   }
 );
