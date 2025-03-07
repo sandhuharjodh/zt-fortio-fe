@@ -1,16 +1,17 @@
 export const login = async (
   email: string,
   password: string,
-  lat: number,
-  long: number
 ) => {
-  const response = await fetch("http://localhost:8000/api/users/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email, password, lat, long }),
-  });
+  const response = await fetch(
+    "http://stgn.appsndevs.com:51878/api/users/login",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    }
+  );
 
   if (!response.ok) {
     const error = await response.json();
@@ -21,12 +22,15 @@ export const login = async (
 };
 
 export const userDetail = async () => {
-  const response = await fetch("http://localhost:8000/api/users/user-list", {
-    method: "Get",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await fetch(
+    "http://stgn.appsndevs.com:51878/api/users/user-list",
+    {
+      method: "Get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   if (!response.ok) {
     const error = await response.json();
     throw new Error(error.message || "No User Found");
@@ -35,10 +39,9 @@ export const userDetail = async () => {
   return response.json();
 };
 
-export const userDetailById = async (userId:any) => {
-  
+export const userDetailById = async (userId: any) => {
   const response = await fetch(
-    `http://localhost:8000/api/users/user/${userId}`,
+    `http://stgn.appsndevs.com:51878/api/users/user/${userId}`,
     {
       method: "Get",
       headers: {

@@ -17,7 +17,13 @@ const Dashboard: React.FC = () => {
     fleetSize:any;
     driver_email:any
   } | null>(null);
+
   const userDetails: any = useAppSelector((state: RootState) => state.user);
+  const sortedUsers = Array.isArray(userDetails?.userDetails?.userlisting)
+  ? [...userDetails.userDetails.userlisting].sort(
+      (a, b) => a.riskFactor - b.riskFactor
+    )
+  : [];
 
   useEffect(() => {
     dispatch(userDetailAsync());
@@ -102,9 +108,8 @@ const Dashboard: React.FC = () => {
             </th>
           </tr>
         </thead>
-        <tbody>
-          {Array.isArray(userDetails?.userDetails?.userlisting) &&
-            userDetails.userDetails.userlisting.map(
+        <tbody>{
+        sortedUsers.map(
               (user: any, index: number) => (
                 <tr
                   key={index}
@@ -125,13 +130,13 @@ const Dashboard: React.FC = () => {
                   </td>
                   <td className="px-6 py-2 name-h-color">{user.country}</td>
                   <td className="px-6 py-2 name-h-color">{user.state}</td>
-                  <td className="px-6 py-2 name-h-color bg-[#3a65ff]">
+                  <td className="px-6 py-2 name-h-color bg-[#3a65ff] cursor-pointer">
                     <div className="flex items-center justify-center">
                       <span
                         onClick={() => handleRowClick(user._id)}
                         className={`
         inline-block border-2 p-2 rounded-lg text-center w-24 py-2 font-bold text-lg 
-        ${user.riskFactor < 50 ? "border-red-500 text-red-500 bg-white" : ""}
+        ${user.riskFactor < 50 ? "border-green-500 text-green-500 bg-white" : ""}
         ${
           user.riskFactor >= 50 && user.riskFactor < 75
             ? "border-yellow-500 text-yellow-500 bg-white"
@@ -139,7 +144,7 @@ const Dashboard: React.FC = () => {
         }
         ${
           user.riskFactor >= 75
-            ? "border-green-500 text-green-500 bg-white"
+            ? "border-red-500 text-red-500 bg-white"
             : ""
         }
       `}
@@ -177,13 +182,13 @@ const Dashboard: React.FC = () => {
 
       {/* User Info Modal */}
       {infoModalData && (
-  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-  <div className="bg-white p-6 rounded-lg shadow-lg w-1/3 relative ">
+<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-4">
+  <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-lg relative">
     {/* Top Section with Border Bottom */}
-    <div className=" border-gray-300 pb-4 relative">
+    <div className="border-gray-300 pb-4 relative">
       {/* Cross Button (Top Right) */}
       <button
-        className="absolute top-0 right-3 bg-blue-500 text-white rounded-full w-7 h-7 flex items-center justify-center hover:bg-blue-700"
+        className="absolute top-2 right-3 bg-blue-500 text-white rounded-full w-7 h-7 flex items-center justify-center hover:bg-blue-700"
         onClick={handleCloseInfoModal}
       >
         ✖
@@ -199,7 +204,7 @@ const Dashboard: React.FC = () => {
     </div>
 
     {/* Fleet and Location */}
-    <div className="grid grid-cols-2 gap-4 mt-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
       <div className="border rounded-lg p-4 shadow-md">
         <p className="text-sm text-gray-500 flex items-center">🚚 Fleet</p>
         <p className="font-bold text-xl">{infoModalData.fleetSize}</p>
@@ -214,7 +219,7 @@ const Dashboard: React.FC = () => {
     <div className="border rounded-lg p-4 shadow-md mt-4">
       <p className="text-sm text-gray-500 flex items-center">📧 Driver Emails</p>
       <div className="font-bold text-blue-600 flex flex-wrap gap-2 mt-2">
-        {infoModalData.driver_email.map((email:any, index:any) => (
+        {infoModalData.driver_email.map((email: any, index: any) => (
           <span key={index} className="whitespace-nowrap">
             {email} {index !== infoModalData.driver_email.length - 1 && "|"}
           </span>
@@ -223,6 +228,7 @@ const Dashboard: React.FC = () => {
     </div>
   </div>
 </div>
+
 
       )}
     </div>

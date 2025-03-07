@@ -122,7 +122,7 @@ const LoginEventsModal: React.FC<LoginEventsModalProps> = ({
                           <div
                             className={`h-full absolute left-0 top-0 transition-all duration-500
                               ${
-                                event.averagePercentage < 50 ? "bg-red-500" : ""
+                                event.averagePercentage <= 0 ? "bg-green-500" : event.averagePercentage < 50 ? "bg-green-500" : ""
                               }
                               ${
                                 event.averagePercentage >= 50 &&
@@ -132,7 +132,7 @@ const LoginEventsModal: React.FC<LoginEventsModalProps> = ({
                               }
                               ${
                                 event.averagePercentage >= 75
-                                  ? "bg-green-500"
+                                  ? "bg-red-500"
                                   : ""
                               }`}
                             style={{

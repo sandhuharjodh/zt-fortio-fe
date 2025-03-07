@@ -10,17 +10,15 @@ __turbopack_esm__({
     "userDetail": (()=>userDetail),
     "userDetailById": (()=>userDetailById)
 });
-const login = async (email, password, lat, long)=>{
-    const response = await fetch("http://localhost:8000/api/users/login", {
+const login = async (email, password)=>{
+    const response = await fetch("http://stgn.appsndevs.com:51878/api/users/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
             email,
-            password,
-            lat,
-            long
+            password
         })
     });
     if (!response.ok) {
@@ -30,7 +28,7 @@ const login = async (email, password, lat, long)=>{
     return response.json();
 };
 const userDetail = async ()=>{
-    const response = await fetch("http://localhost:8000/api/users/user-list", {
+    const response = await fetch("http://stgn.appsndevs.com:51878/api/users/user-list", {
         method: "Get",
         headers: {
             "Content-Type": "application/json"
@@ -43,7 +41,7 @@ const userDetail = async ()=>{
     return response.json();
 };
 const userDetailById = async (userId)=>{
-    const response = await fetch(`http://localhost:8000/api/users/user/${userId}`, {
+    const response = await fetch(`http://stgn.appsndevs.com:51878/api/users/user/${userId}`, {
         method: "Get",
         headers: {
             "Content-Type": "application/json"
@@ -86,8 +84,8 @@ const userDetailAsync = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node
     const response = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$Redux$2f$userService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["userDetail"])();
     return response;
 });
-const LoginAsync = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])("auth/login", async ({ email, password, lat, long })=>{
-    const response = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$Redux$2f$userService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["login"])(email, password, lat, long);
+const LoginAsync = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])("auth/login", async ({ email, password })=>{
+    const response = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$Redux$2f$userService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["login"])(email, password);
     return response;
 });
 const UserByIdAsync = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])("auth/userById", async (userId)=>{
@@ -159,7 +157,7 @@ __turbopack_esm__({
 });
 const loginEvents = async (userId)=>{
     console.log(userId, "vccvvcvcv");
-    const response = await fetch(`http://localhost:8000/api/users/fetch-user/${userId}`, {
+    const response = await fetch(`http://stgn.appsndevs.com:51878/api/users/fetch-user/${userId}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"

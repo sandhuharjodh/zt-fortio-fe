@@ -2,9 +2,6 @@
 import { useState } from "react";
 import { RootState, useAppDispatch, useAppSelector } from "./Redux";
 import { LoginAsync } from "./Redux/userSlice";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
@@ -22,32 +19,30 @@ export default function Login() {
     e.preventDefault();
 
     // Fetch geolocation
-    const getGeolocation = (): Promise<{ lat: number; long: number }> => {
-      return new Promise((resolve, reject) => {
-        if (!navigator.geolocation) {
-          reject(new Error("Geolocation is not supported by your browser."));
-        } else {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              const { latitude, longitude } = position.coords;
-              resolve({ lat: latitude, long: longitude });
-            },
-            (error) => reject(error),
-            { enableHighAccuracy: true }
-          );
-        }
-      });
-    };
+    // const getGeolocation = (): Promise<{ lat: number; long: number }> => {
+    //   return new Promise((resolve, reject) => {
+    //     if (!navigator.geolocation) {
+    //       reject(new Error("Geolocation is not supported by your browser."));
+    //     } else {
+    //       navigator.geolocation.getCurrentPosition(
+    //         (position) => {
+    //           const { latitude, longitude } = position.coords;
+    //           resolve({ lat: latitude, long: longitude });
+    //         },
+    //         (error) => reject(error),
+    //         { enableHighAccuracy: true }
+    //       );
+    //     }
+    //   });
+    // };
 
     try {
-      const { lat, long } = await getGeolocation();
+      // const { lat, long } = await getGeolocation();
 
-      const data: any = await dispatch(
+      const data:any = await dispatch(
         LoginAsync({
           email,
-          password,
-          lat,
-          long,
+          password
         })
       );
       

@@ -45,8 +45,8 @@ interface LoginResponse {
 interface LoginArgs {
   email: string;
   password: string;
-  lat: number;
-  long: number;
+  lat?: number;
+  long?: number;
 }
 
 interface UserByIdArgs {
@@ -64,8 +64,8 @@ export const userDetailAsync = createAsyncThunk<LoginArgs>(
 
 export const LoginAsync = createAsyncThunk<LoginResponse, LoginArgs>(
   "auth/login",
-  async ({ email, password, lat, long }) => {
-    const response = await login(email, password,lat,long);
+  async ({ email, password }) => {
+    const response = await login(email, password);
     return response;
   }
 );
